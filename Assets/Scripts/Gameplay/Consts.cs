@@ -1,5 +1,8 @@
-public static class Consts
+namespace Gameplay
 {
-    public const string PlayerTag = "Player";
-    public const string FinishTag = "Finish";
+    public static class Consts
+    {
+        public const string PlayerTag = "Player";
+        public const string FinishTag = "Finish";
+    }
 }

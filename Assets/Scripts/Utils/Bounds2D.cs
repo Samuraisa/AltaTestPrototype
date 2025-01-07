@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Alta.Utils
+namespace Utils
 {
     public struct Bounds2D
     {

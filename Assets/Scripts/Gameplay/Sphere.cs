@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Alta.Gameplay
+namespace Gameplay
 {
     public class Sphere : MonoBehaviour
     {

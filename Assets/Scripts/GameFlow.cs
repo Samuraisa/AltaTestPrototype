@@ -1,6 +1,6 @@
 using System;
-using Alta.Gameplay;
 using DG.Tweening;
+using Extensions;
 using Gameplay;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -78,11 +78,14 @@ public class GameFlow : MonoBehaviour
         _playerTransform = player.transform;
         _shotTransform = shot.transform;
         _obstacleRadius = obstaclePrefabCollider.radius;
+        
+        player.Initialize();
+        targetTransform.rotation = Quaternion.LookRotation(targetTransform.position.WithY(0f));
+
         CalculateMinMaxShotPowerModifiers();
         
         CurrentState = State.MainMenu;
         uiView.ShowMainMenu();
-        player.Initialize();
     }
 
     private void OnDestroy()
@@ -119,8 +122,6 @@ public class GameFlow : MonoBehaviour
         
         player.Radius = settings.PlayerInitialRadius;
         _playerTransform.position = Vector3.zero.WithY(player.Radius);
-
-        targetTransform.rotation = Quaternion.LookRotation(targetTransform.position - _playerTransform.position);
         
         gameplayData.ShotDirectionNormalized = (targetTransform.position - _playerTransform.position).WithY(0f).normalized;
         CurrentState = State.Gameplay;

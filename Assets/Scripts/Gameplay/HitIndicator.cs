@@ -1,7 +1,6 @@
-using Gameplay;
 using UnityEngine;
 
-namespace Alta.Gameplay
+namespace Gameplay
 {
     public class HitIndicator : MonoBehaviour
     {

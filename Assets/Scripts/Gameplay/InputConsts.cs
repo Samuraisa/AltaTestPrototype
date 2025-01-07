@@ -1,4 +1,4 @@
-namespace Alta.Gameplay
+namespace Gameplay
 {
     public static class InputConsts
     {

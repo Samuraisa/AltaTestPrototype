@@ -1,5 +1,4 @@
-using Alta.Gameplay;
-using Alta.Utils;
+using Utils;
 using UnityEngine;
 
 namespace Gameplay

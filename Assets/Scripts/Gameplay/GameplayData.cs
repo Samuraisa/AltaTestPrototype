@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Alta.Gameplay
+namespace Gameplay
 {
     [CreateAssetMenu(fileName = "GameplayData", menuName = "Gameplay/GameplayData", order = 0)]
     public class GameplayData : ScriptableObject

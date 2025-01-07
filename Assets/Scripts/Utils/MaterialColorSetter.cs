@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Alta.Utils
+namespace Utils
 {
     public class MaterialColorSetter : MonoBehaviour
     {

@@ -1,10 +1,9 @@
-using System;
-using Alta.Utils;
-using Gameplay;
+using Extensions;
+using Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Alta.Gameplay
+namespace Gameplay
 {
     public class Player : MonoBehaviour
     {
