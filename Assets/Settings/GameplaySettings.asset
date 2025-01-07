@@ -12,26 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e17282738344a1aabf189c73c960419, type: 3}
   m_Name: GameplaySettings
   m_EditorClassIdentifier: 
-  MinTargetDistance: 30
-  MaxTargetDistance: 60
-  ObstaclesSpawnSettings:
-    SpawnAreaExtension: {x: 5, y: 5}
-    StepSize: 1.6
-    SafeRadiusAroundPlayer: 4
-    SafeZoneAroundTarget: 1
   PlayerMinRadius: 0.4
-  PlayerMaxRadius: 3
-  PlayerMinColor: {r: 1, g: 0, b: 0, a: 1}
-  PlayerMaxColor: {r: 0, g: 1, b: 0, a: 1}
-  PlayerInitialEnergyMultiplier: 1.2
-  ShotMinRadius: 0.4
-  ShotChargeRate: 0.05
-  ShotMinColor: {r: 0, g: 1, b: 0, a: 1}
-  ShotMaxColor: {r: 1, g: 0, b: 0, a: 1}
-  ShotSpeed: 15
-  TargetLayerMask:
+  PlayerInitialRadius: 1
+  PositiveColor: {r: 0, g: 1, b: 0, a: 1}
+  NegativeColor: {r: 1, g: 0, b: 0, a: 1}
+  ExplosionMaxRadius: 3
+  ExplosionPowerCurve:
     serializedVersion: 2
-    m_Bits: 0
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3.4649122
+      outSlope: 3.4649122
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.15277228
+    - serializedVersion: 3
+      time: 0.2839617
+      value: 0.65504104
+      inSlope: 1.0473161
+      outSlope: 1.0473161
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16307583
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ShotChargeRate: 0.2
+  ShotSpeed: 15
+  PlayerExtraSafeDistance: 1
+  PlayerMovementSpeed: 5
   ObstacleLayerMask:
     serializedVersion: 2
     m_Bits: 128

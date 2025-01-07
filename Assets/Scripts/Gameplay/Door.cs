@@ -5,15 +5,13 @@ namespace Alta.Gameplay
     public class Door : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        [SerializeField] private Player player;
-        [SerializeField] private float openDoorAtDistance = 5f;
         
         private static readonly int AP_Open = Animator.StringToHash("Open");
 
-        private void LateUpdate()
+        private void OnTriggerEnter(Collider other)
         {
-            var distance = Vector3.Distance(player.transform.position, transform.position);
-            animator.SetBool(AP_Open, distance <= openDoorAtDistance);
+            if (other.gameObject.CompareTag(Consts.PlayerTag))
+                animator.SetBool(AP_Open, true);
         }
     }
 }

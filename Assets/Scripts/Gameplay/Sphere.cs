@@ -26,8 +26,8 @@ namespace Alta.Gameplay
         private void SetRadius(float radius)
         {
             _radius = radius;
-            var t = transform;
-            t.localScale = new Vector3(_radius, _radius, _radius);
+            var diameter = _radius * 2f;
+            transform.localScale = new Vector3(diameter, diameter, diameter);
         }
 
         private static float GetVolume(float radius)
