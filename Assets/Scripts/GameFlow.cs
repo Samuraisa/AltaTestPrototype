@@ -78,7 +78,7 @@ public class GameFlow : MonoBehaviour
         _playerTransform = player.transform;
         _shotTransform = shot.transform;
         _obstacleRadius = obstaclePrefabCollider.radius;
-        //CalculateMinMaxShotPowerModifiers();
+        CalculateMinMaxShotPowerModifiers();
         
         CurrentState = State.MainMenu;
         uiView.ShowMainMenu();
@@ -90,7 +90,7 @@ public class GameFlow : MonoBehaviour
         _movementTween?.Kill();
     }
 
-    /*private void CalculateMinMaxShotPowerModifiers()
+    private void CalculateMinMaxShotPowerModifiers()
     {
         // Considering 100 steps for curve testing gives enough precision
         const float step = 0.01f;
@@ -101,16 +101,15 @@ public class GameFlow : MonoBehaviour
         var curve = settings.ExplosionPowerCurve;
         for (var progress = 0f; progress <= 1f; progress += step)
         {
-            var explosionRadius = GetExplosionRadius(progress);
-            var offset = curve.Evaluate(progress) - progress;
+            var powerModifier = shot.GetPowerModifier(progress);
 
-            if (gameplayData.MinShotPowerModifier > offset)
-                gameplayData.MinShotPowerModifier = offset;
+            if (gameplayData.MinShotPowerModifier > powerModifier)
+                gameplayData.MinShotPowerModifier = powerModifier;
 
-            if (gameplayData.MaxShotPowerModifier < offset)
-                gameplayData.MaxShotPowerModifier = offset;
+            if (gameplayData.MaxShotPowerModifier < powerModifier)
+                gameplayData.MaxShotPowerModifier = powerModifier;
         }
-    }*/
+    }
 
 
     [UsedImplicitly]
@@ -236,24 +235,32 @@ public class GameFlow : MonoBehaviour
         CurrentSubState = SubState.MovingPlayer;
         var startPosition = _playerTransform.position;
         var endPosition = targetTransform.position;
-        var obstacleWashit = TryHitObstacle(startPosition, endPosition, player.Radius);
+        var obstacleWasHit = TryHitObstacle(startPosition, endPosition, player.Radius);
         
         // If obstacle was hit, we move closer to obstacle with some safe distance
         // otherwise we move directly to the exit
-        if (obstacleWashit) 
+        if (obstacleWasHit) 
         {
             endPosition = _raycastHits[0].point + _raycastHits[0].normal * player.Radius;
-            // 3xRadius: 2 for max possible next shot size + 1 for player's sphere offset from it's own center 
-            var desiredDistance = 3f * player.Radius + settings.PlayerExtraSafeDistance;
-            var currentDistance = Vector3.Distance(startPosition, endPosition);
             
-            // If we are already close enough to the obstacle, we don't need to move
-            if (currentDistance <= desiredDistance)
+            // If we are already closer to finish than hit position, then don't move
+            if ((targetTransform.position - endPosition).sqrMagnitude >= (targetTransform.position - startPosition).sqrMagnitude)
             {
                 StartNextTurn();
                 return;
             }
 
+            // 3xRadius: 2 for max possible next shot size + 1 for player's sphere offset from it's own center 
+            var desiredDistance = 3f * player.Radius + settings.PlayerExtraSafeDistance;
+            var currentDistance = Vector3.Distance(startPosition, endPosition);
+            
+            // If we are already close enough to the obstacle, we don't need to move either
+            if (currentDistance <= desiredDistance)
+            {
+                StartNextTurn();
+                return;
+            }
+            
             endPosition = startPosition + gameplayData.ShotDirectionNormalized * (currentDistance - desiredDistance);
         }
 
@@ -272,7 +279,7 @@ public class GameFlow : MonoBehaviour
     {
         // Obstacle radius added, because we are not checking intersections of circles here,
         // but checking the distance between centers of explosion and obstacle instead 
-        var explosionRadius = GetExplosionRadius(shot.PowerProgress) + _obstacleRadius;
+        var explosionRadius = shot.GetExplosionRadius(shot.PowerProgress) + _obstacleRadius;
         var explosionRadiusSqr = explosionRadius * explosionRadius;
 
         var index = obstaclesParent.childCount - 1;
@@ -285,12 +292,6 @@ public class GameFlow : MonoBehaviour
 
             index--;
         }
-    }
-
-    private float GetExplosionRadius(float shotPowerProgress)
-    {
-        return Mathf.Lerp(settings.ExplosionMinRadius, settings.ExplosionMaxRadius,
-                settings.ExplosionPowerCurve.Evaluate(shotPowerProgress));
     }
 
     private void UpdateShotHitPosition()
