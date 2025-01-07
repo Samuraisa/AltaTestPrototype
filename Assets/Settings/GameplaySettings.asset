@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e17282738344a1aabf189c73c960419, type: 3}
+  m_Name: GameplaySettings
+  m_EditorClassIdentifier: 
+  MinTargetDistance: 30
+  MaxTargetDistance: 60
+  ObstaclesSpawnSettings:
+    SpawnAreaExtension: {x: 5, y: 5}
+    StepSize: 1.6
+    SafeRadiusAroundPlayer: 4
+    SafeZoneAroundTarget: 1
+  PlayerMinRadius: 0.4
+  PlayerMaxRadius: 3
+  PlayerMinColor: {r: 1, g: 0, b: 0, a: 1}
+  PlayerMaxColor: {r: 0, g: 1, b: 0, a: 1}
+  PlayerInitialEnergyMultiplier: 1.2
+  ShotMinRadius: 0.4
+  ShotChargeRate: 0.05
+  ShotMinColor: {r: 0, g: 1, b: 0, a: 1}
+  ShotMaxColor: {r: 1, g: 0, b: 0, a: 1}
+  ShotSpeed: 15
+  TargetLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  ObstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
