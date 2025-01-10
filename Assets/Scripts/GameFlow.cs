@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 public class GameFlow : MonoBehaviour
 {
+    // TODO: Implement a proper FSM, might took 1-2 hours more.
     private enum State
     {
         None,
